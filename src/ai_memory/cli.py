@@ -1,8 +1,16 @@
 from __future__ import annotations
 
 import argparse
+from pathlib import Path
 
-from .storage import build_context, create_conversation, ensure_base_structure, expand_tags
+from .storage import (
+    build_context,
+    create_conversation,
+    ensure_base_structure,
+    expand_tags,
+    export_pdf_text,
+    find_pdf_files,
+)
 
 
 def cmd_init(_: argparse.Namespace) -> int:
@@ -29,6 +37,20 @@ def cmd_add(args: argparse.Namespace) -> int:
 def cmd_build_context(args: argparse.Namespace) -> int:
     output = build_context(limit=args.limit)
     print(f"Built context: {output}")
+    return 0
+
+
+def cmd_extract_pdf(args: argparse.Namespace) -> int:
+    input_path = Path(args.input).expanduser().resolve()
+    pdf_files = find_pdf_files(input_path)
+    if not pdf_files:
+        print(f"No PDF files found: {input_path}")
+        return 1
+
+    source_root = input_path if input_path.is_dir() else None
+    for pdf_file in pdf_files:
+        output = export_pdf_text(pdf_file, source_root=source_root)
+        print(f"Extracted: {pdf_file} -> {output}")
     return 0
 
 
@@ -69,6 +91,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Maximum number of recent conversation summaries.",
     )
     build_parser_cmd.set_defaults(func=cmd_build_context)
+
+    extract_parser = subparsers.add_parser(
+        "extract-pdf",
+        help="Extract text from one PDF file or all PDFs inside a directory.",
+    )
+    extract_parser.add_argument(
+        "--input",
+        required=True,
+        help="Path to a PDF file or a directory containing PDFs.",
+    )
+    extract_parser.set_defaults(func=cmd_extract_pdf)
 
     return parser
 

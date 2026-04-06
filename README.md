@@ -40,6 +40,10 @@ memory/
         domain_updates.md
   snapshots/
     active_context.md       # 给新模型直接喂的上下文
+  imports/
+    ...                     # 从 PDF 等资料抽取出的文本
+scripts/
+  extract_pdf_text.swift
 src/
   ai_memory/
     cli.py
@@ -57,6 +61,7 @@ templates/
 - 自动生成 `meta.json`
 - 自动生成“结论层 / 证据层 / 问题层”文件骨架
 - 增加固定主题主档案层，避免每次遍历全部对话
+- 支持从 PDF 文件或资料文件夹抽取文本
 - 根据已有摘要与长期资料导出 `active_context.md`
 - 方便你提交到 Git / GitHub
 
@@ -132,6 +137,26 @@ python3 -m src.ai_memory.cli build-context
 - `memory/snapshots/active_context.md`
 
 把它发给新的 AI 模型，作为你的长期上下文起点。
+
+### 5. 从 PDF 资料抽取文本
+
+如果你把 PDF 放进某个文件夹，可以这样批量抽取：
+
+```bash
+python3 -m src.ai_memory.cli extract-pdf --input "Felex 资料"
+```
+
+如果只抽一个 PDF：
+
+```bash
+python3 -m src.ai_memory.cli extract-pdf --input "Felex 资料/某个文件.pdf"
+```
+
+抽取结果会写到：
+
+- `memory/imports/`
+
+这样后续我就可以直接读取这些抽取后的文本，而不是每次重新做 PDF 解析。
 
 ## 推荐工作流
 

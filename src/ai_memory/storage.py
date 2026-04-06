@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -14,7 +15,9 @@ PROFILE_DIR = MEMORY_DIR / "profiles"
 CONVERSATIONS_DIR = MEMORY_DIR / "conversations"
 SNAPSHOT_DIR = MEMORY_DIR / "snapshots"
 DOMAINS_DIR = MEMORY_DIR / "domains"
+IMPORTS_DIR = MEMORY_DIR / "imports"
 TEMPLATES_DIR = ROOT_DIR / "templates"
+SCRIPTS_DIR = ROOT_DIR / "scripts"
 
 TAG_PRESETS = {
     "tech": [
@@ -58,6 +61,7 @@ def ensure_base_structure() -> None:
     CONVERSATIONS_DIR.mkdir(parents=True, exist_ok=True)
     SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
     DOMAINS_DIR.mkdir(parents=True, exist_ok=True)
+    IMPORTS_DIR.mkdir(parents=True, exist_ok=True)
     (DOMAINS_DIR / "career").mkdir(parents=True, exist_ok=True)
     (DOMAINS_DIR / "collaboration").mkdir(parents=True, exist_ok=True)
     (DOMAINS_DIR / "strategy").mkdir(parents=True, exist_ok=True)
@@ -72,6 +76,7 @@ def ensure_base_structure() -> None:
         (TEMPLATES_DIR / "role_definition.md", DOMAINS_DIR / "career" / "role_definition.md"),
         (TEMPLATES_DIR / "ai_expectations.md", DOMAINS_DIR / "collaboration" / "ai_expectations.md"),
         (TEMPLATES_DIR / "commit_workflow.md", DOMAINS_DIR / "collaboration" / "commit_workflow.md"),
+        (TEMPLATES_DIR / "traceable_response_style.md", DOMAINS_DIR / "collaboration" / "traceable_response_style.md"),
         (TEMPLATES_DIR / "writing_style.md", DOMAINS_DIR / "collaboration" / "writing_style.md"),
         (TEMPLATES_DIR / "long_term_goals.md", DOMAINS_DIR / "strategy" / "long_term_goals.md"),
         (TEMPLATES_DIR / "context_philosophy.md", DOMAINS_DIR / "strategy" / "context_philosophy.md"),
@@ -236,6 +241,7 @@ def build_context(limit: int = 8) -> Path:
     role_definition = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "career" / "role_definition.md"))
     ai_expectations = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "collaboration" / "ai_expectations.md"))
     commit_workflow = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "collaboration" / "commit_workflow.md"))
+    traceable_response_style = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "collaboration" / "traceable_response_style.md"))
     long_term_goals = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "strategy" / "long_term_goals.md"))
     context_philosophy = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "strategy" / "context_philosophy.md"))
     pipeline_digitalization = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "technology" / "pipeline_digitalization.md"))
@@ -279,6 +285,10 @@ def build_context(limit: int = 8) -> Path:
         "### /commit 工作流",
         "",
         commit_workflow or "_尚未填写 commit_workflow.md_",
+        "",
+        "### 可追溯回答模板",
+        "",
+        traceable_response_style or "_尚未填写 traceable_response_style.md_",
         "",
         "### 长期目标",
         "",
@@ -331,4 +341,54 @@ def build_context(limit: int = 8) -> Path:
 
     output_path = SNAPSHOT_DIR / "active_context.md"
     output_path.write_text("\n".join(sections).strip() + "\n", encoding="utf-8")
+    return output_path
+
+
+def find_pdf_files(path: Path) -> List[Path]:
+    if path.is_file():
+        return [path]
+    return sorted(path.rglob("*.pdf"))
+
+
+def export_pdf_text(input_path: Path, source_root: Path | None = None) -> Path:
+    ensure_base_structure()
+    if not input_path.exists():
+        raise FileNotFoundError(f"Input path does not exist: {input_path}")
+    if input_path.suffix.lower() != ".pdf":
+        raise ValueError(f"Not a PDF file: {input_path}")
+
+    script_path = SCRIPTS_DIR / "extract_pdf_text.swift"
+    if not script_path.exists():
+        raise FileNotFoundError(f"Missing extractor script: {script_path}")
+
+    cache_dir = Path("/tmp/codex-swift-cache")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    result = subprocess.run(
+        [
+            "/usr/bin/env",
+            f"CLANG_MODULE_CACHE_PATH={cache_dir}",
+            "swift",
+            str(script_path),
+            str(input_path),
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    if source_root is not None and source_root.is_dir():
+        relative = input_path.relative_to(source_root)
+        output_path = IMPORTS_DIR / source_root.name / relative.with_suffix(".md")
+    else:
+        output_path = IMPORTS_DIR / f"{input_path.stem}.md"
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
+        f"# {input_path.name}\n\n"
+        f"- Source: `{input_path}`\n\n"
+        "## Extracted Text\n\n"
+        f"{result.stdout.strip()}\n",
+        encoding="utf-8",
+    )
     return output_path
