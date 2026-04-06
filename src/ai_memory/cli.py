@@ -1,0 +1,77 @@
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+from .storage import build_context, create_conversation, ensure_base_structure
+
+
+def cmd_init(_: argparse.Namespace) -> int:
+    ensure_base_structure()
+    print("Initialized memory vault in ./memory")
+    return 0
+
+
+def cmd_add(args: argparse.Namespace) -> int:
+    tags = []
+    if args.tags:
+        tags = [item.strip() for item in args.tags.split(",")]
+
+    record = create_conversation(
+        title=args.title,
+        model=args.model,
+        tags=tags,
+    )
+    print(f"Created conversation: {record.path}")
+    return 0
+
+
+def cmd_build_context(args: argparse.Namespace) -> int:
+    output = build_context(limit=args.limit)
+    print(f"Built context: {output}")
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="memory-vault",
+        description="Git-based AI memory vault.",
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    init_parser = subparsers.add_parser("init", help="Initialize the memory structure.")
+    init_parser.set_defaults(func=cmd_init)
+
+    add_parser = subparsers.add_parser("add", help="Add a conversation folder.")
+    add_parser.add_argument("--title", required=True, help="Conversation title.")
+    add_parser.add_argument("--model", default="unknown", help="Model name.")
+    add_parser.add_argument(
+        "--tags",
+        default="",
+        help="Comma-separated tags.",
+    )
+    add_parser.set_defaults(func=cmd_add)
+
+    build_parser_cmd = subparsers.add_parser(
+        "build-context",
+        help="Build a portable context snapshot for other AI models.",
+    )
+    build_parser_cmd.add_argument(
+        "--limit",
+        type=int,
+        default=8,
+        help="Maximum number of recent conversation summaries.",
+    )
+    build_parser_cmd.set_defaults(func=cmd_build_context)
+
+    return parser
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
