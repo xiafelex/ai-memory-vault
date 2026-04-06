@@ -519,6 +519,7 @@ AI 需要避免：
 - `memory/domains/career/work_history.md`：工作经历时间线
 - `memory/domains/career/role_definition.md`：角色定义与组织定位
 - `memory/domains/collaboration/ai_expectations.md`：AI 协作期待
+- `memory/domains/collaboration/commit_workflow.md`：/commit 的使用规则与收尾流程
 - `memory/domains/collaboration/writing_style.md`：表达风格与写作标准
 - `memory/domains/strategy/long_term_goals.md`：长期目标
 - `memory/domains/strategy/context_philosophy.md`：关于 context、模型、agent 与协作方式的底层认知
@@ -590,6 +591,156 @@ AI 需要避免：
 - 优先帮助整理、分类、提炼和落地
 - 需要保留原话证据，避免只有结论没有依据
 - 每次重要对话后，应判断是否需要更新固定主题主档案
+- 当用户说“commit 这次对话”时，AI 应把这次新增的长期价值沉淀回记忆系统，而不是只把聊天结束
+
+### /commit 工作流
+
+## `/commit` 是什么
+
+`/commit` 不是“保存聊天记录”。
+
+它的真正含义是：
+
+- 把这次对话里值得长期保留的增量，沉淀回用户的记忆系统
+- 更新需要更新的主题主档案
+- 让未来的 agent、模型和用户自己，都能复用这次新增的 context
+
+## `/commit` 什么时候应该触发
+
+适合触发的情况：
+
+- 形成了新的稳定结论
+- 明确了新的长期目标、偏好、工作方法或判断标准
+- 产生了值得保留的关键原话
+- 某个固定主题需要更新
+- 出现了新的长期主题，值得新建到 `memory/domains/`
+- 这次对话明显降低了未来重复解释成本
+
+不一定要触发的情况：
+
+- 只是普通来回讨论，没有形成稳定增量
+- 只是临时试错，没有长期价值
+- 只是执行性聊天，没有新的方法、结论或主题更新
+- 只是重复已有内容，没有新增信息
+
+## 不要按“每天一次”机械 commit
+
+`/commit` 不应该按日期触发，而应该按“有没有高价值增量”触发。
+
+所以：
+
+- 今天聊了很多，但没有新的稳定结论，可以不 commit
+- 今天只聊了一小段，但形成了重要判断，就值得 commit
+
+## 连续工作时怎么用
+
+如果今天和明天都在推进同一个主题：
+
+- 不需要每天都重新开始
+- 明天继续时，先加载已有 context，再接着聊
+- 只有当这次对话新增了值得长期保留的内容时，才触发 `/commit`
+
+推荐心智模型：
+
+- `load-context` 负责开始
+- `/commit` 负责收尾
+
+## 新项目时怎么用
+
+如果是一个新的长期方向、新课题或新项目：
+
+1. 先新建一条会话
+2. 先在会话层沉淀内容
+3. 如果发现这个主题会长期存在，再考虑升格为 `memory/domains/` 下的固定主题
+4. 对话结束时判断是否 `/commit`
+
+也就是说：
+
+- 新项目通常先开新会话
+- 不一定一开始就新建主题层
+
+## 跨 agent / 跨平台时怎么用
+
+如果从 Codex 切到 Cursor、Claude Code 或其他 agent：
+
+1. 新 agent 先读取：
+   - `memory/snapshots/active_context.md`
+   - 需要时再读相关 `memory/domains/*.md`
+2. 开始新一轮协作
+3. 对话结束后，如果有高价值增量，再执行 `/commit`
+
+关键点：
+
+- 跨平台时最重要的是先加载 context
+- `/commit` 负责把新增内容写回同一个 Git 仓库
+
+## `/commit` 的标准动作
+
+当用户说“commit 这次对话”时，后续 AI 默认执行以下动作：
+
+1. 判断这次对话是否真的有长期增量
+2. 如果有，补全或更新当前会话中的：
+   - `summary.md`
+   - `evidence.md`
+   - `open_questions.md`
+   - `domain_updates.md`
+3. 根据 `domain_updates.md` 决定是否更新：
+   - `memory/profiles/`
+   - `memory/domains/`
+4. 重新生成：
+   - `memory/snapshots/active_context.md`
+5. 然后执行：
+   - `git add .`
+   - `git commit -m "..."`
+   - `git push`
+
+## `/commit` 前的判断问题
+
+后续 AI 在触发 `/commit` 前，默认先判断这 4 个问题：
+
+1. 这次对话有没有新增的稳定结论？
+2. 这次对话有没有值得保留的关键原话？
+3. 这次对话有没有需要更新的固定主题？
+4. 这次对话有没有降低未来重复解释成本？
+
+只要其中至少有 1 到 2 项明显成立，通常就值得 commit。
+
+## `/commit` 的输出目标
+
+一次好的 `/commit`，不只是“保存了内容”，而是应该让未来的使用者能更快进入状态：
+
+- 未来的你自己
+- 未来的 Codex
+- 未来的 Claude Code
+- 未来的 Cursor agent
+- 未来的其他模型和自动化流程
+
+## 当前推荐的实际使用方式
+
+### 场景 1：连续工作
+
+- 开始时加载 context
+- 继续工作
+- 有新增长期价值时再 `/commit`
+
+### 场景 2：新项目
+
+- 先新建会话
+- 跑几轮再判断是否升格成固定主题
+- 有稳定增量时 `/commit`
+
+### 场景 3：跨 agent
+
+- 新 agent 先读 `active_context.md`
+- 必要时读相关主题主档案
+- 结束时把新增内容 `/commit` 回同一个 Git 仓库
+
+## 这套工作流的目标
+
+- 不是多记笔记
+- 不是把每次聊天都归档
+- 而是持续降低用户和 agent 之间的协作摩擦
+- 让用户的 context 变成真正可迁移、可复用、可进化的资产
 
 ### 长期目标
 

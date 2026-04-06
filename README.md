@@ -106,6 +106,7 @@ python3 -m src.ai_memory.cli add \
 - 角色定义
 - 长期目标
 - AI 协作期待
+- `/commit` 工作流
 - 表达风格
 - 管道数字化主线
 
@@ -147,6 +148,27 @@ python3 -m src.ai_memory.cli build-context
    - `memory/profiles/preferences.md`
 8. 重新构建上下文
 9. `git add . && git commit -m "Add AI memory: ..."`
+
+## `/commit` 的实际含义
+
+`/commit` 不是保存所有聊天，而是把这次对话中“值得长期保留的新增内容”写回记忆系统。
+
+更适合 `/commit` 的内容：
+
+- 新的稳定结论
+- 新的关键原话
+- 新的长期偏好或工作方法
+- 需要更新固定主题主档案的内容
+
+不必 `/commit` 的内容：
+
+- 普通来回讨论
+- 临时试错
+- 没有形成长期增量的聊天
+
+更完整的规则见：
+
+- `memory/domains/collaboration/commit_workflow.md`
 
 ## 建议记录什么
 

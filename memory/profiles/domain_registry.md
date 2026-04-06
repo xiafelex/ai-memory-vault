@@ -7,6 +7,7 @@
 - `memory/domains/career/work_history.md`：工作经历时间线
 - `memory/domains/career/role_definition.md`：角色定义与组织定位
 - `memory/domains/collaboration/ai_expectations.md`：AI 协作期待
+- `memory/domains/collaboration/commit_workflow.md`：/commit 的使用规则与收尾流程
 - `memory/domains/collaboration/writing_style.md`：表达风格与写作标准
 - `memory/domains/strategy/long_term_goals.md`：长期目标
 - `memory/domains/strategy/context_philosophy.md`：关于 context、模型、agent 与协作方式的底层认知

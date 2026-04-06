@@ -71,6 +71,7 @@ def ensure_base_structure() -> None:
         (TEMPLATES_DIR / "work_history.md", DOMAINS_DIR / "career" / "work_history.md"),
         (TEMPLATES_DIR / "role_definition.md", DOMAINS_DIR / "career" / "role_definition.md"),
         (TEMPLATES_DIR / "ai_expectations.md", DOMAINS_DIR / "collaboration" / "ai_expectations.md"),
+        (TEMPLATES_DIR / "commit_workflow.md", DOMAINS_DIR / "collaboration" / "commit_workflow.md"),
         (TEMPLATES_DIR / "writing_style.md", DOMAINS_DIR / "collaboration" / "writing_style.md"),
         (TEMPLATES_DIR / "long_term_goals.md", DOMAINS_DIR / "strategy" / "long_term_goals.md"),
         (TEMPLATES_DIR / "context_philosophy.md", DOMAINS_DIR / "strategy" / "context_philosophy.md"),
@@ -234,6 +235,7 @@ def build_context(limit: int = 8) -> Path:
     work_history = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "career" / "work_history.md"))
     role_definition = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "career" / "role_definition.md"))
     ai_expectations = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "collaboration" / "ai_expectations.md"))
+    commit_workflow = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "collaboration" / "commit_workflow.md"))
     long_term_goals = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "strategy" / "long_term_goals.md"))
     context_philosophy = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "strategy" / "context_philosophy.md"))
     pipeline_digitalization = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "technology" / "pipeline_digitalization.md"))
@@ -273,6 +275,10 @@ def build_context(limit: int = 8) -> Path:
         "### AI 协作期待",
         "",
         ai_expectations or "_尚未填写 ai_expectations.md_",
+        "",
+        "### /commit 工作流",
+        "",
+        commit_workflow or "_尚未填写 commit_workflow.md_",
         "",
         "### 长期目标",
         "",
