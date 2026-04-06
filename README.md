@@ -23,12 +23,21 @@ memory/
     user.md                 # 你的长期画像
     preferences.md          # 偏好、风格、工作方式
     conversation_tags.md    # 会话标签模板
+    domain_registry.md      # 固定主题索引
+  domains/
+    career/
+    collaboration/
+    strategy/
+    technology/
   conversations/
     2026/
       2026-04-06-my-first-session/
         meta.json
         transcript.md
         summary.md
+        evidence.md
+        open_questions.md
+        domain_updates.md
   snapshots/
     active_context.md       # 给新模型直接喂的上下文
 src/
@@ -46,6 +55,8 @@ templates/
 - 新建一次重要对话记录
 - 按主类别自动补齐会话标签
 - 自动生成 `meta.json`
+- 自动生成“结论层 / 证据层 / 问题层”文件骨架
+- 增加固定主题主档案层，避免每次遍历全部对话
 - 根据已有摘要与长期资料导出 `active_context.md`
 - 方便你提交到 Git / GitHub
 
@@ -77,7 +88,26 @@ python3 -m src.ai_memory.cli add \
   --tags ai-memory,github,knowledge-base
 ```
 
-创建后会生成一个目录，你把原始对话粘贴进 `transcript.md`，再把总结写进 `summary.md`。
+创建后会生成一个目录，建议这样使用：
+
+- `transcript.md`：完整原始对话
+- `summary.md`：你和 AI 共同确认后的结论
+- `evidence.md`：保留关键原话、依据、原始判断
+- `open_questions.md`：后续还需要追问、核实、校准的问题
+- `domain_updates.md`：这次对话是否需要更新固定主题主档案
+
+固定主题主档案放在：
+
+- `memory/domains/`
+
+建议把跨多次对话仍然稳定的重要内容，逐步沉淀到这里，例如：
+
+- 工作经历
+- 角色定义
+- 长期目标
+- AI 协作期待
+- 表达风格
+- 管道数字化主线
 
 主类别目前支持：
 
@@ -108,13 +138,15 @@ python3 -m src.ai_memory.cli build-context
 
 1. 新建一条会话
 2. 粘贴原始对话到 `transcript.md`
-3. 把可复用的信息提炼到 `summary.md`
-4. 检查主类别和标签是否准确
-4. 如果这次对你画像有长期影响，就同步更新：
+3. 把关键原话和依据记到 `evidence.md`
+4. 把可复用的信息提炼到 `summary.md`
+5. 把还没完全确认的问题记到 `open_questions.md`
+6. 检查主类别和标签是否准确
+7. 如果这次对你画像有长期影响，就同步更新：
    - `memory/profiles/user.md`
    - `memory/profiles/preferences.md`
-5. 重新构建上下文
-6. `git add . && git commit -m "Add AI memory: ..."`
+8. 重新构建上下文
+9. `git add . && git commit -m "Add AI memory: ..."`
 
 ## 建议记录什么
 

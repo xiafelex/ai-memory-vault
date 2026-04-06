@@ -13,6 +13,7 @@ MEMORY_DIR = ROOT_DIR / "memory"
 PROFILE_DIR = MEMORY_DIR / "profiles"
 CONVERSATIONS_DIR = MEMORY_DIR / "conversations"
 SNAPSHOT_DIR = MEMORY_DIR / "snapshots"
+DOMAINS_DIR = MEMORY_DIR / "domains"
 TEMPLATES_DIR = ROOT_DIR / "templates"
 
 TAG_PRESETS = {
@@ -56,11 +57,23 @@ def ensure_base_structure() -> None:
     PROFILE_DIR.mkdir(parents=True, exist_ok=True)
     CONVERSATIONS_DIR.mkdir(parents=True, exist_ok=True)
     SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
+    DOMAINS_DIR.mkdir(parents=True, exist_ok=True)
+    (DOMAINS_DIR / "career").mkdir(parents=True, exist_ok=True)
+    (DOMAINS_DIR / "collaboration").mkdir(parents=True, exist_ok=True)
+    (DOMAINS_DIR / "strategy").mkdir(parents=True, exist_ok=True)
+    (DOMAINS_DIR / "technology").mkdir(parents=True, exist_ok=True)
 
     template_pairs = [
         (TEMPLATES_DIR / "user.md", PROFILE_DIR / "user.md"),
         (TEMPLATES_DIR / "preferences.md", PROFILE_DIR / "preferences.md"),
         (TEMPLATES_DIR / "conversation_tags.md", PROFILE_DIR / "conversation_tags.md"),
+        (TEMPLATES_DIR / "domain_registry.md", PROFILE_DIR / "domain_registry.md"),
+        (TEMPLATES_DIR / "work_history.md", DOMAINS_DIR / "career" / "work_history.md"),
+        (TEMPLATES_DIR / "role_definition.md", DOMAINS_DIR / "career" / "role_definition.md"),
+        (TEMPLATES_DIR / "ai_expectations.md", DOMAINS_DIR / "collaboration" / "ai_expectations.md"),
+        (TEMPLATES_DIR / "writing_style.md", DOMAINS_DIR / "collaboration" / "writing_style.md"),
+        (TEMPLATES_DIR / "long_term_goals.md", DOMAINS_DIR / "strategy" / "long_term_goals.md"),
+        (TEMPLATES_DIR / "pipeline_digitalization.md", DOMAINS_DIR / "technology" / "pipeline_digitalization.md"),
     ]
 
     for src, dst in template_pairs:
@@ -111,6 +124,42 @@ def create_conversation(title: str, model: str, tags: Iterable[str]) -> Conversa
         "## AI 后续应该记住什么\n\n"
         "- \n\n"
         "## 可复用约束 / 偏好 / 决策\n\n"
+        "- \n",
+        encoding="utf-8",
+    )
+    (convo_dir / "evidence.md").write_text(
+        f"# {title} 证据与原话\n\n"
+        "## 原话摘录\n\n"
+        "- 原话：\n"
+        "  解释：\n"
+        "  分类：\n\n"
+        "## 可直接作为长期证据的内容\n\n"
+        "- \n\n"
+        "## 需要后续核实的点\n\n"
+        "- \n",
+        encoding="utf-8",
+    )
+    (convo_dir / "open_questions.md").write_text(
+        f"# {title} 待确认问题\n\n"
+        "## 高优先级\n\n"
+        "- \n\n"
+        "## 中优先级\n\n"
+        "- \n\n"
+        "## 已确认\n\n"
+        "- \n",
+        encoding="utf-8",
+    )
+    (convo_dir / "domain_updates.md").write_text(
+        f"# {title} 主题更新判定\n\n"
+        "## 这次对话涉及哪些固定主题\n\n"
+        "- 主题：\n"
+        "  是否已有：\n"
+        "  是否需要更新：\n"
+        "  对应文件：\n"
+        "  更新说明：\n\n"
+        "## 需要新建的主题\n\n"
+        "- \n\n"
+        "## 本次不需要更新的主题\n\n"
         "- \n",
         encoding="utf-8",
     )
@@ -180,6 +229,12 @@ def build_context(limit: int = 8) -> Path:
     profile = normalize_markdown_body(read_text_if_exists(PROFILE_DIR / "user.md"))
     preferences = normalize_markdown_body(read_text_if_exists(PROFILE_DIR / "preferences.md"))
     classification = normalize_markdown_body(read_text_if_exists(PROFILE_DIR / "classification.md"))
+    domain_registry = normalize_markdown_body(read_text_if_exists(PROFILE_DIR / "domain_registry.md"))
+    work_history = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "career" / "work_history.md"))
+    role_definition = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "career" / "role_definition.md"))
+    ai_expectations = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "collaboration" / "ai_expectations.md"))
+    long_term_goals = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "strategy" / "long_term_goals.md"))
+    pipeline_digitalization = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "technology" / "pipeline_digitalization.md"))
 
     sections = [
         "# Active Context",
@@ -198,6 +253,40 @@ def build_context(limit: int = 8) -> Path:
         "## 记忆分类框架",
         "",
         classification or "_尚未填写 classification.md_",
+        "",
+        "## 主题主档案索引",
+        "",
+        domain_registry or "_尚未填写 domain_registry.md_",
+        "",
+        "## 关键主题主档案",
+        "",
+        "### 工作经历时间线",
+        "",
+        work_history or "_尚未填写 work_history.md_",
+        "",
+        "### 角色定义",
+        "",
+        role_definition or "_尚未填写 role_definition.md_",
+        "",
+        "### AI 协作期待",
+        "",
+        ai_expectations or "_尚未填写 ai_expectations.md_",
+        "",
+        "### 长期目标",
+        "",
+        long_term_goals or "_尚未填写 long_term_goals.md_",
+        "",
+        "### 管道数字化主线",
+        "",
+        pipeline_digitalization or "_尚未填写 pipeline_digitalization.md_",
+        "",
+        "## 使用提醒",
+        "",
+        "- `summary.md` 存结论层",
+        "- `evidence.md` 存原话证据层",
+        "- `open_questions.md` 存待确认问题层",
+        "- `domain_updates.md` 存主题更新判定",
+        "- `memory/domains/` 存跨对话聚合后的固定主题",
         "",
         "## 最近重要对话摘要",
         "",
