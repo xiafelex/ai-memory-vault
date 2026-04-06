@@ -15,6 +15,25 @@ CONVERSATIONS_DIR = MEMORY_DIR / "conversations"
 SNAPSHOT_DIR = MEMORY_DIR / "snapshots"
 TEMPLATES_DIR = ROOT_DIR / "templates"
 
+TAG_PRESETS = {
+    "tech": [
+        "technical-rnd",
+        "pipeline-digitalization",
+    ],
+    "management": [
+        "management-innovation",
+        "organization",
+    ],
+    "expression": [
+        "reporting-expression",
+        "writing",
+    ],
+    "thinking": [
+        "learning-thinking",
+        "strategy",
+    ],
+}
+
 
 @dataclass
 class ConversationRecord:
@@ -41,6 +60,7 @@ def ensure_base_structure() -> None:
     template_pairs = [
         (TEMPLATES_DIR / "user.md", PROFILE_DIR / "user.md"),
         (TEMPLATES_DIR / "preferences.md", PROFILE_DIR / "preferences.md"),
+        (TEMPLATES_DIR / "conversation_tags.md", PROFILE_DIR / "conversation_tags.md"),
     ]
 
     for src, dst in template_pairs:
@@ -105,6 +125,30 @@ def create_conversation(title: str, model: str, tags: Iterable[str]) -> Conversa
     )
 
 
+def expand_tags(tags: Iterable[str], category: str = "") -> List[str]:
+    normalized = []
+    seen = set()
+
+    for tag in tags:
+        clean = tag.strip()
+        if clean and clean not in seen:
+            normalized.append(clean)
+            seen.add(clean)
+
+    category_key = category.strip().lower()
+    if category_key:
+        preset = TAG_PRESETS.get(category_key, [])
+        if category_key not in seen:
+            normalized.append(category_key)
+            seen.add(category_key)
+        for tag in preset:
+            if tag not in seen:
+                normalized.append(tag)
+                seen.add(tag)
+
+    return normalized
+
+
 def load_conversation_dirs() -> List[Path]:
     if not CONVERSATIONS_DIR.exists():
         return []
@@ -120,10 +164,22 @@ def read_text_if_exists(path: Path) -> str:
     return path.read_text(encoding="utf-8").strip()
 
 
+def normalize_markdown_body(text: str) -> str:
+    if not text:
+        return ""
+    lines = text.splitlines()
+    if lines and lines[0].startswith("# "):
+        lines = lines[1:]
+        while lines and not lines[0].strip():
+            lines = lines[1:]
+    return "\n".join(lines).strip()
+
+
 def build_context(limit: int = 8) -> Path:
     ensure_base_structure()
-    profile = read_text_if_exists(PROFILE_DIR / "user.md")
-    preferences = read_text_if_exists(PROFILE_DIR / "preferences.md")
+    profile = normalize_markdown_body(read_text_if_exists(PROFILE_DIR / "user.md"))
+    preferences = normalize_markdown_body(read_text_if_exists(PROFILE_DIR / "preferences.md"))
+    classification = normalize_markdown_body(read_text_if_exists(PROFILE_DIR / "classification.md"))
 
     sections = [
         "# Active Context",
@@ -139,6 +195,10 @@ def build_context(limit: int = 8) -> Path:
         "",
         preferences or "_尚未填写 preferences.md_",
         "",
+        "## 记忆分类框架",
+        "",
+        classification or "_尚未填写 classification.md_",
+        "",
         "## 最近重要对话摘要",
         "",
     ]
@@ -153,7 +213,7 @@ def build_context(limit: int = 8) -> Path:
         model = meta.get("model", "unknown")
         created_at = meta.get("created_at", "")
         tags = ", ".join(meta.get("tags", []))
-        summary = read_text_if_exists(summary_path) or "_尚未填写 summary.md_"
+        summary = normalize_markdown_body(read_text_if_exists(summary_path)) or "_尚未填写 summary.md_"
 
         sections.extend(
             [

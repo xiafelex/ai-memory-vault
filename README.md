@@ -22,6 +22,7 @@ memory/
   profiles/
     user.md                 # 你的长期画像
     preferences.md          # 偏好、风格、工作方式
+    conversation_tags.md    # 会话标签模板
   conversations/
     2026/
       2026-04-06-my-first-session/
@@ -43,6 +44,7 @@ templates/
 
 - 初始化记忆仓库目录
 - 新建一次重要对话记录
+- 按主类别自动补齐会话标签
 - 自动生成 `meta.json`
 - 根据已有摘要与长期资料导出 `active_context.md`
 - 方便你提交到 Git / GitHub
@@ -71,10 +73,22 @@ python3 -m src.ai_memory.cli init
 python3 -m src.ai_memory.cli add \
   --title "构建 AI 记忆 Git 框架" \
   --model "Codex / GPT-5" \
+  --category thinking \
   --tags ai-memory,github,knowledge-base
 ```
 
 创建后会生成一个目录，你把原始对话粘贴进 `transcript.md`，再把总结写进 `summary.md`。
+
+主类别目前支持：
+
+- `tech`
+- `management`
+- `expression`
+- `thinking`
+
+标签模板见：
+
+- `memory/profiles/conversation_tags.md`
 
 ### 4. 导出给新模型的上下文
 
@@ -95,6 +109,7 @@ python3 -m src.ai_memory.cli build-context
 1. 新建一条会话
 2. 粘贴原始对话到 `transcript.md`
 3. 把可复用的信息提炼到 `summary.md`
+4. 检查主类别和标签是否准确
 4. 如果这次对你画像有长期影响，就同步更新：
    - `memory/profiles/user.md`
    - `memory/profiles/preferences.md`

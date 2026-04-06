@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 
-from .storage import build_context, create_conversation, ensure_base_structure
+from .storage import build_context, create_conversation, ensure_base_structure, expand_tags
 
 
 def cmd_init(_: argparse.Namespace) -> int:
@@ -16,6 +15,7 @@ def cmd_add(args: argparse.Namespace) -> int:
     tags = []
     if args.tags:
         tags = [item.strip() for item in args.tags.split(",")]
+    tags = expand_tags(tags, category=args.category)
 
     record = create_conversation(
         title=args.title,
@@ -46,9 +46,15 @@ def build_parser() -> argparse.ArgumentParser:
     add_parser.add_argument("--title", required=True, help="Conversation title.")
     add_parser.add_argument("--model", default="unknown", help="Model name.")
     add_parser.add_argument(
+        "--category",
+        default="",
+        choices=["", "tech", "management", "expression", "thinking"],
+        help="Primary conversation category.",
+    )
+    add_parser.add_argument(
         "--tags",
         default="",
-        help="Comma-separated tags.",
+        help="Comma-separated tags. Category presets are added automatically when --category is used.",
     )
     add_parser.set_defaults(func=cmd_add)
 

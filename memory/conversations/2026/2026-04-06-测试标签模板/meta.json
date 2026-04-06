@@ -1,0 +1,13 @@
+{
+  "title": "测试标签模板",
+  "model": "Codex / GPT-5",
+  "created_at": "2026-04-06T17:33:55",
+  "tags": [
+    "scheduling",
+    "awp",
+    "tech",
+    "technical-rnd",
+    "pipeline-digitalization"
+  ],
+  "status": "draft"
+}
