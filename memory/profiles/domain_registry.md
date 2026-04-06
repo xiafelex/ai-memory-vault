@@ -9,6 +9,7 @@
 - `memory/domains/collaboration/ai_expectations.md`：AI 协作期待
 - `memory/domains/collaboration/writing_style.md`：表达风格与写作标准
 - `memory/domains/strategy/long_term_goals.md`：长期目标
+- `memory/domains/strategy/context_philosophy.md`：关于 context、模型、agent 与协作方式的底层认知
 - `memory/domains/technology/pipeline_digitalization.md`：管道数字化主线
 
 ## 更新规则

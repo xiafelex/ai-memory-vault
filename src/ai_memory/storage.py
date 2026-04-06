@@ -73,6 +73,7 @@ def ensure_base_structure() -> None:
         (TEMPLATES_DIR / "ai_expectations.md", DOMAINS_DIR / "collaboration" / "ai_expectations.md"),
         (TEMPLATES_DIR / "writing_style.md", DOMAINS_DIR / "collaboration" / "writing_style.md"),
         (TEMPLATES_DIR / "long_term_goals.md", DOMAINS_DIR / "strategy" / "long_term_goals.md"),
+        (TEMPLATES_DIR / "context_philosophy.md", DOMAINS_DIR / "strategy" / "context_philosophy.md"),
         (TEMPLATES_DIR / "pipeline_digitalization.md", DOMAINS_DIR / "technology" / "pipeline_digitalization.md"),
     ]
 
@@ -234,6 +235,7 @@ def build_context(limit: int = 8) -> Path:
     role_definition = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "career" / "role_definition.md"))
     ai_expectations = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "collaboration" / "ai_expectations.md"))
     long_term_goals = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "strategy" / "long_term_goals.md"))
+    context_philosophy = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "strategy" / "context_philosophy.md"))
     pipeline_digitalization = normalize_markdown_body(read_text_if_exists(DOMAINS_DIR / "technology" / "pipeline_digitalization.md"))
 
     sections = [
@@ -275,6 +277,10 @@ def build_context(limit: int = 8) -> Path:
         "### 长期目标",
         "",
         long_term_goals or "_尚未填写 long_term_goals.md_",
+        "",
+        "### Context 哲学",
+        "",
+        context_philosophy or "_尚未填写 context_philosophy.md_",
         "",
         "### 管道数字化主线",
         "",
