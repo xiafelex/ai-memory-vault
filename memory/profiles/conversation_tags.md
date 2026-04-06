@@ -78,6 +78,13 @@
 - `summary`
 - `proposal`
 - `data-support`
+- `style-calibration`
+- `paper-style`
+- `policy-style`
+- `bid-video-style`
+- `ppt-style`
+- `ai-revision-comparison`
+- `review-comment-style`
 
 ### 学习思考类常用补充标签
 
@@ -102,6 +109,8 @@
 - `tech,pipeline-digitalization,scheduling,awp`
 - `management,digital-transformation,technical-center,process`
 - `expression,report,ppt,data-support`
+- `expression,style-calibration,paper-style,policy-style`
+- `expression,style-calibration,bid-video-style,review-comment-style`
 - `thinking,roadmap,entrepreneurship,decision`
 
 ## 使用建议

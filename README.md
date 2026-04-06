@@ -112,6 +112,7 @@ python3 -m src.ai_memory.cli add \
 - 长期目标
 - AI 协作期待
 - `/commit` 工作流
+- 风格校准场景
 - 表达风格
 - 管道数字化主线
 
@@ -204,6 +205,31 @@ python3 -m src.ai_memory.cli extract-pdf --input "Felex 资料/某个文件.pdf"
 更完整的规则见：
 
 - `memory/domains/collaboration/commit_workflow.md`
+
+## 风格校准场景
+
+如果你是在持续给 AI 投喂论文、提案、视频稿、PPT、AI 润色前后版本，目的是逐步校准你的个人风格，可以把它视为一个固定场景。
+
+- 主类别通常是 `expression`
+- 常用补充标签：
+  - `style-calibration`
+  - `paper-style`
+  - `policy-style`
+  - `bid-video-style`
+  - `ppt-style`
+  - `ai-revision-comparison`
+  - `review-comment-style`
+
+使用这个场景时，建议同时区分 4 层：
+
+- 场景自带结构
+- 用户个人语言风格
+- 用户修改标准
+- AI 润色偏差
+
+对应规则见：
+
+- `memory/domains/collaboration/style_calibration.md`
 
 ## 建议记录什么
 

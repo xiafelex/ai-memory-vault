@@ -8,6 +8,7 @@
 - `memory/domains/career/role_definition.md`：角色定义与组织定位
 - `memory/domains/collaboration/ai_expectations.md`：AI 协作期待
 - `memory/domains/collaboration/commit_workflow.md`：/commit 的使用规则与收尾流程
+- `memory/domains/collaboration/style_calibration.md`：风格校准场景与材料采样规则
 - `memory/domains/collaboration/traceable_response_style.md`：引用用户偏好时的可追溯回答方式
 - `memory/domains/collaboration/writing_style.md`：表达风格与写作标准
 - `memory/domains/strategy/long_term_goals.md`：长期目标
