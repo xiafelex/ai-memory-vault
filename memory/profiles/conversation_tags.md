@@ -66,6 +66,11 @@
 - `technical-center`
 - `research-management`
 - `quarterly-plan`
+- `research-records`
+- `reward-mechanism`
+- `topic-portfolio`
+- `project-verification`
+- `evidence-import`
 - `hr`
 - `materials`
 - `fixed-assets`
@@ -111,6 +116,8 @@
 - `tech,pipeline-digitalization,scheduling,awp`
 - `management,digital-transformation,technical-center,process`
 - `management,research-management,technical-center,quarterly-plan`
+- `management,research-management,research-records,reward-mechanism`
+- `management,research-management,evidence-import,project-verification`
 - `expression,report,ppt,data-support`
 - `expression,style-calibration,paper-style,policy-style`
 - `expression,style-calibration,bid-video-style,review-comment-style`

@@ -129,6 +129,28 @@
    - `git commit -m "..."`
    - `git push`
 
+## 资料导入型 `/commit`
+
+如果当前主题段中，用户新增了外部资料，例如：
+
+- 研发计划
+- 课题奖励
+- 红头文件
+- Excel 课题清单
+- PDF、Word、PPT 或修改意见材料
+
+则 `/commit` 不应只总结聊天内容，还应检查资料是否已经完成以下闭环：
+
+1. 原始资料是否应保留在 `Felex 资料/` 或其他资料目录
+2. 可读取文本是否已进入 `memory/imports/`
+3. 当前会话的 `evidence.md` 是否记录了资料来源和关键依据
+4. 当前会话的 `summary.md` 是否说明这批资料改变了什么理解
+5. `domain_updates.md` 是否判断需要更新哪些主题主档案
+6. 相关 `memory/domains/` 是否已经同步稳定结论
+7. `memory/snapshots/active_context.md` 是否已重新生成
+
+这类 `/commit` 的输入源不是单纯聊天，而是“聊天 + 新增资料 + 主题层更新”。默认仍遵循“一个主题段，一个 commit”，不要因为同一批资料里有多个文件就机械拆成多个 commit。
+
 ## `/commit` 前的判断问题
 
 后续 AI 在触发 `/commit` 前，默认先判断这 4 个问题：
