@@ -1,0 +1,77 @@
+
+技术中心2025年度第三季度研发课题奖励
+
+
+为了践行部门“设计先导、焊接赋能、数字驱动、管理创新”指导思想，落实年度工作计划目标，稳步推进自动焊接、派工排产、成本价值三大核心竞争力构建，围绕数据管理能力成熟度模型持续优化组织治理，结合2025年第三季度的业务与研发工作情况，进行奖励公示，具体如下：
+
+原则及方向
+实际完成研发、上线的研发课题见本文附件一。
+课题划分为前瞻研究及流程贯通、部署开发及成果转化、应用迭代及体验提升三个阶段。
+前瞻研究及流程贯通侧重对于部门中长期发展计划和本年度研发计划中的重点进行提前研究、确定技术路线及完成小试阶段的成品雏形，以提交的组案为考核依据。
+部署开发及成果转化侧重对于前瞻研究和流程贯通中确定的研发课题，在具体的场景中进行应用部署，并与具体的应用数据相结合，以场景的应用程度为考核依据。
+应用迭代及体验提升侧重对于已经完成部署的开发场景，进行查缺补漏，鼓励发现问题，提升用户体验。以提交的问题和解决优化表单作为考核依据。
+根据课题的重要程度、困难程度、紧急程度，参考部门科技创新成果创优奖励办法将课题分为1000元到3万元七个档次的奖励标准，本季度研发奖励涉及到1000与2000元两个奖励标准。
+上级课题关联单个子课题的，下级完成后即等同于上级奖金发放，以高级课题奖金额度为准。上级课题关联多个子级课题的，所有关联子课题完成后，额外奖励2000元奖金，由关联主课题负责人分配。
+前瞻研究及流程贯通研究奖励50%以进度值形式发放，50%以研发成果组案形式发放。对于课题参与成员奖励15%的研发任务分值。
+部署开发及成果转化开发奖励50%以进度值形式发放，30%以成果的进度数字化数值发放，20%以研发成果组案形式发放。对于课题参与成员奖励10%的研发任务分值。
+应用迭代及体验提升优化奖励50%以进度值形式发放，30%以质量问题清单发放，20%以研发成果组案形式发放。对于课题参与成员奖励10%的研发任务分值。
+研发过程以氚云任务管理系统的研发任务审批分值作为计算依据，每个任务审批完成需要提交知识库截图。
+研究室/工作室或者课题负责人进行奖励分配，同时对研发课题范围严谨性、知识库和研发任务审批规范性负责，研发工作属实但是审批不规范的，影响研发管理绩效。
+后续季度周期内完成研发的，参考任务分配的延期政策执行。
+后续补充完成组案的，此部分奖金按照前几季度该课题主管分配金额组成等比例进行分配。
+研发课题奖金，涉及离职人员部分分配额，由主管决定差额发放。
+研发课题标记“应用”的，需通过远程或现场方式对课题进行应用验证；研发课题标记“实践”的，需通过一线项目现场方式对课题进行实践验证，研发课题标记“部署”的，需要上线运行并有稳定数据进行部署验证。
+鼓励有余力有能力的研发团队在完成计划研发任务基础上进行储备任务研发，享受储备任务管理绩效分值加成。
+鼓励参与研发课题成员使用 ChatGPT、Claude、LLama2、Stable Diffusion、Midjourney等人工智能工具及其付费高级版本辅助研发课题开展，予以智能工具补贴，每月核准发放。
+2025年前三季度研发课题进度奖励，合计6项，见附件一
+2025年前三季度研发课题组案奖励，本期未有组案更新，不予发放奖金，后续提交按照延期标准执行
+
+本次奖金于2025年11月工资10月奖金中发放到位。
+谨代表部门感谢各成员的辛勤付出，望部门各成员积极进取、创新研究、实践探索，为部门及公司建设添砖加瓦，成为部门的中流砥柱。
+
+
+南京南化建设有限公司
+                                         技术中心
+                             二〇二五年十月十一日
+附件一：
+2025年前三季度研发课题进度奖励
+
+石化信息化工程研究中心数据算法研究组
+基于Cursor的材料代码程序设计（应用），根据氚云逐月课题工时统计结果，总耗时274工时。
+
+
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-09-28/dde06c05-0aa0-4204-9335-b1c32ad8dd04?Expires=1769050666&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=tsi3XqwzxFRWVMb2Y0D48Esdicc=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-09-28/32ce5c14-c222-4dce-8dc5-a6a660bfb225?Expires=1769050666&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=YU7LkpGpPohidpDq3wsBQK9BCa8=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-09-28/7c822c01-a3ac-4041-b627-82b0ff345764?Expires=1769050765&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=4xh1l6lGEbD5aziNVXJVZ/ln1pM=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+竣工图纸RPA批量化处理研究（应用），根据氚云逐月课题工时统计结果，总耗时421工时。
+
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-09-28/152c0116-1682-450e-905e-2094407d2b19?Expires=1769051476&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=ipFvc1cH7ZkNty2OJvdgQYyjCx8=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+无损检测点口算法数据分离技术研究（应用），根据氚云逐月课题工时统计结果，总耗时212.5工时。
+
+
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-10-12/9804d7cf-d464-459c-99c2-8c25e6fc7a15?Expires=1769051986&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=of9R6vCHexttRdbmAiBMnZxEqQs=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-10-12/798d2454-be08-46f3-96da-dbaf774fecd6?Expires=1769051986&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=NHVtH/f9Ahj4gT5Z7SVGnGea2HM=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+基于PDF版本单线图的手动电子化落图模块（应用），根据氚云逐月课题工时统计结果，总耗时430工时。
+
+
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-10-11/05bd89aa-bcec-4e45-a24a-81e16a3937e7?Expires=1769052864&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=7L4R5rm9BUROLkVCPNnluqUIxwU=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-10-11/759cd17d-dbf9-4e98-a423-282c65fcfbe0?Expires=1769052781&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=4CxIVKRHb20qggQ8l+ae2cJDDKU=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+基于大模型API的管道材料编码系统研究（打通流程），根据氚云逐月课题工时统计结果，总耗时972工时。
+
+
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-11-13/fe9f1343-4d54-4606-8f26-b7b37f9ba394?Expires=1769053027&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=/V6gPGJ7G7GM9TVdnmi40j7/2pI=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-11-13/c2857520-309d-4b55-ac78-76f6d11dfcad?Expires=1769053027&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=c0zzmA0g8rGJM23jMOrRJ6EBHbE=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+
+石化信息化工程研究中心数据交互研究组
+基于RPA的微信即时回复机器人（实践），根据氚云逐月课题工时统计结果，总耗时11工时。
+
+INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-09-28/dc8a7842-0eb6-404e-82c2-a9f6fb7ea083?Expires=1769051665&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=auoOMv0Zu3mK2F1oVB58Ijrpln8=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-09-28/d22d1154-fcdb-4e73-888c-2504614f3b08?Expires=1769051665&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=iO84CNiIHof+dC28/FqL2K1XMCk=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET INCLUDEPICTURE \d "https://file.h3yun.com/ety58sf4upb95mibri9qatvi5/Formal/2025-09-28/c209897b-f3e5-4b7a-9ec7-8589e06bec7f?Expires=1769051759&OSSAccessKeyId=LTAICDQBavDJ6TRk&Signature=j+90Yv0PyBzI5dtdQbhkdMadRTs=&x-oss-process=image/auto-orient,1/resize,l_1440" \* MERGEFORMATINET 
+
+
+
+
+技术中心
+BIM研〔2025〕10号
+
+                                        PAGE  \* Arabic  \* MERGEFORMAT1 / NUMPAGES  \* Arabic  \* MERGEFORMAT2
+
+
+
