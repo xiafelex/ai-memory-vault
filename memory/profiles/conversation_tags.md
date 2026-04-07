@@ -64,6 +64,8 @@
 - `resource-allocation`
 - `digital-transformation`
 - `technical-center`
+- `research-management`
+- `quarterly-plan`
 - `hr`
 - `materials`
 - `fixed-assets`
@@ -108,6 +110,7 @@
 
 - `tech,pipeline-digitalization,scheduling,awp`
 - `management,digital-transformation,technical-center,process`
+- `management,research-management,technical-center,quarterly-plan`
 - `expression,report,ppt,data-support`
 - `expression,style-calibration,paper-style,policy-style`
 - `expression,style-calibration,bid-video-style,review-comment-style`

@@ -27,6 +27,7 @@ memory/
   domains/
     career/
     collaboration/
+    management/
     strategy/
     technology/
   conversations/
@@ -109,6 +110,7 @@ python3 -m src.ai_memory.cli add \
 
 - 工作经历
 - 角色定义
+- 季度研发管理计划
 - 长期目标
 - AI 协作期待
 - `/commit` 工作流

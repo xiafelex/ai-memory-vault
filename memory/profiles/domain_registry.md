@@ -6,6 +6,7 @@
 
 - `memory/domains/career/work_history.md`：工作经历时间线
 - `memory/domains/career/role_definition.md`：角色定义与组织定位
+- `memory/domains/management/research_management_plan.md`：技术中心季度研发管理计划
 - `memory/domains/collaboration/ai_expectations.md`：AI 协作期待
 - `memory/domains/collaboration/commit_workflow.md`：/commit 的使用规则与收尾流程
 - `memory/domains/collaboration/style_calibration.md`：风格校准场景与材料采样规则
