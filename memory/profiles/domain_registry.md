@@ -18,6 +18,7 @@
 - `memory/domains/strategy/context_philosophy.md`：关于 context、模型、agent 与协作方式的底层认知
 - `memory/domains/technology/pipeline_digitalization.md`：管道数字化主线
 - `memory/domains/technology/pipeline_scheduling_system.md`：石化管道预制焊接排产系统核心课题
+- `memory/domains/technology/pipeline_topic_overview.md`：石化管道数字化大课题综述
 
 ## 更新规则
 
