@@ -12,3 +12,5 @@ build/
 *.pyd
 memory/index.json
 exports/
+node_modules/
+outputs/
