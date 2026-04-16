@@ -47,7 +47,22 @@ tmp_sorted=$(mktemp)
 tmp_batch=$(mktemp)
 trap 'rm -f "$tmp_untracked" "$tmp_sorted" "$tmp_batch"' EXIT
 
-git status --porcelain --untracked-files=all | sed -n 's/^?? //p' > "${tmp_untracked}"
+python3 - <<'PY' "${tmp_untracked}"
+import subprocess
+import sys
+
+output_file = sys.argv[1]
+result = subprocess.run(
+    ["git", "ls-files", "--others", "--exclude-standard", "-z"],
+    check=True,
+    stdout=subprocess.PIPE,
+)
+items = [p for p in result.stdout.decode("utf-8", errors="surrogateescape").split("\x00") if p]
+with open(output_file, "w", encoding="utf-8") as out:
+    for item in items:
+        out.write(item)
+        out.write("\n")
+PY
 
 python3 - <<'PY' "${target_dir}" "${tmp_untracked}" "${tmp_sorted}"
 import os
