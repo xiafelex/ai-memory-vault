@@ -134,9 +134,10 @@ flush_batch() {
 
   echo ""
   echo "开始提交第 ${current_batch_no} 批：${current_batch_count} 个文件，约 $((current_batch_bytes / 1024 / 1024))MB"
-  cat "${tmp_batch}"
+  sed '/^$/d' "${tmp_batch}"
 
   while IFS= read -r file; do
+    [[ -z "${file:-}" ]] && continue
     git add -- "$file"
   done < "${tmp_batch}"
 
