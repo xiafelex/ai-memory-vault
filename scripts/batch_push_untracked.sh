@@ -127,19 +127,32 @@ flush_batch() {
   local current_batch_no="$1"
   local current_batch_bytes="$2"
   local current_batch_count="$3"
+  local actual_count
 
   if [[ "${current_batch_count}" -eq 0 ]]; then
     return 0
   fi
 
+  actual_count=$(sed '/^$/d' "${tmp_batch}" | wc -l | tr -d ' ')
+  if [[ "${actual_count}" -eq 0 ]]; then
+    : > "${tmp_batch}"
+    return 0
+  fi
+
   echo ""
-  echo "开始提交第 ${current_batch_no} 批：${current_batch_count} 个文件，约 $((current_batch_bytes / 1024 / 1024))MB"
+  echo "开始提交第 ${current_batch_no} 批：${actual_count} 个文件，约 $((current_batch_bytes / 1024 / 1024))MB"
   sed '/^$/d' "${tmp_batch}"
 
   while IFS= read -r file; do
     [[ -z "${file:-}" ]] && continue
     git add -- "$file"
   done < "${tmp_batch}"
+
+  if git diff --cached --quiet; then
+    echo "本批没有新增可提交文件，跳过。"
+    : > "${tmp_batch}"
+    return 0
+  fi
 
   git commit -m "${commit_prefix} (batch ${current_batch_no})"
   git push
