@@ -11,6 +11,7 @@
 - `memory/domains/management/research_management_plan.md`：技术中心季度研发管理计划
 - `memory/domains/management/project_reporting_and_evaluation_workflow.md`：科研项目申报、过程管理与成果评价工作流
 - `memory/domains/management/digital_rnd_meeting_map.md`：技术中心数字化研发周会图谱
+- `memory/domains/management/design_institute_org_and_log_knowledge_base.md`：设计研究院历史管理口径、当前组织口径与日志知识库底稿
 - `memory/domains/collaboration/ai_expectations.md`：AI 协作期待
 - `memory/domains/collaboration/commit_workflow.md`：/commit 的使用规则与收尾流程
 - `memory/domains/collaboration/multi_device_knowledge_workflow.md`：多设备、不同附件与远程主记忆层的协同规则
