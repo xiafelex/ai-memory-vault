@@ -40,6 +40,14 @@ class UserTarget:
     department_id: str | None = None
 
 
+def build_period_label(start_date: str, end_date: str) -> str:
+    start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+    end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+    if start_dt.year == end_dt.year and start_dt.month == end_dt.month:
+        return start_dt.strftime("%Y-%m")
+    return f"{start_dt.strftime('%Y-%m-%d')}_to_{end_dt.strftime('%Y-%m-%d')}"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Fetch DingTalk logs for one or more users and export Markdown files."
@@ -84,6 +92,10 @@ def parse_args() -> argparse.Namespace:
         "--output-dir",
         default="outputs/dingtalk_logs",
         help="Directory for generated Markdown files.",
+    )
+    parser.add_argument(
+        "--output-org",
+        help="Optional organization label. When set, files are stored under <output-dir>/<org>/<year>/<period>/.",
     )
     parser.add_argument(
         "--token-mode",
@@ -395,12 +407,29 @@ def render_markdown(
     return "\n".join(lines)
 
 
-def write_markdown_file(content: str, *, output_dir: Path, department_name: str, user_name: str) -> Path:
+def write_markdown_file(
+    content: str,
+    *,
+    output_dir: Path,
+    department_name: str,
+    user_name: str,
+    user_id: str,
+) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
-    file_name = f"{sanitize_filename(department_name)}_{sanitize_filename(user_name)}_logs.md"
+    file_name = f"{sanitize_filename(user_name)}__{sanitize_filename(user_id)}.md"
     file_path = output_dir / file_name
     file_path.write_text(content, encoding="utf-8")
     return file_path
+
+
+def resolve_output_dir(args: argparse.Namespace) -> Path:
+    base_dir = Path(args.output_dir).expanduser().resolve()
+    if not args.output_org:
+        return base_dir
+
+    start_dt = datetime.strptime(args.start_date, "%Y-%m-%d")
+    period_label = build_period_label(args.start_date, args.end_date)
+    return base_dir / sanitize_filename(args.output_org) / start_dt.strftime("%Y") / period_label
 
 
 def read_csv_targets(csv_path: Path, user_col: str, dept_col: str) -> list[UserTarget]:
@@ -514,6 +543,7 @@ def fetch_user_logs(target: UserTarget, args: argparse.Namespace, access_token: 
         output_dir=output_dir,
         department_name=department_name,
         user_name=user_name,
+        user_id=target.user_id,
     )
     print(f"[INFO] 已写出 {file_path}")
     return file_path
@@ -523,7 +553,7 @@ def main() -> int:
     args = parse_args()
     app_key = require_value("app_key / DINGTALK_APP_KEY", args.app_key)
     app_secret = require_value("app_secret / DINGTALK_APP_SECRET", args.app_secret)
-    output_dir = Path(args.output_dir).expanduser().resolve()
+    output_dir = resolve_output_dir(args)
 
     try:
         access_token = get_access_token(app_key, app_secret, args.token_mode)
