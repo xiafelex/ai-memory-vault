@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import re
@@ -402,6 +403,29 @@ def write_markdown_file(content: str, *, output_dir: Path, department_name: str,
     return file_path
 
 
+def read_csv_targets(csv_path: Path, user_col: str, dept_col: str) -> list[UserTarget]:
+    with csv_path.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle)
+        if reader.fieldnames is None:
+            raise SystemExit(f"CSV file is empty: {csv_path}")
+        if user_col not in reader.fieldnames:
+            raise SystemExit(f"Missing required column in CSV: {user_col}")
+        if dept_col not in reader.fieldnames:
+            raise SystemExit(f"Missing required column in CSV: {dept_col}")
+
+        targets: list[UserTarget] = []
+        for row in reader:
+            user_value = row.get(user_col)
+            dept_value = row.get(dept_col)
+            if user_value in (None, ""):
+                continue
+            user_id = str(user_value).strip()
+            department_id = str(dept_value).strip() if dept_value not in (None, "") else None
+            targets.append(UserTarget(user_id=user_id, department_id=department_id))
+
+    return targets
+
+
 def read_excel_targets(excel_path: Path, sheet_name: str | None, user_col: str, dept_col: str) -> list[UserTarget]:
     workbook = load_workbook(excel_path, read_only=True, data_only=True)
     worksheet = workbook[sheet_name] if sheet_name else workbook.active
@@ -442,6 +466,8 @@ def resolve_targets(args: argparse.Namespace) -> list[UserTarget]:
         excel_path = Path(args.excel).expanduser().resolve()
         if not excel_path.exists():
             raise SystemExit(f"Excel file not found: {excel_path}")
+        if excel_path.suffix.lower() == ".csv":
+            return read_csv_targets(excel_path, args.user_col, args.dept_col)
         return read_excel_targets(excel_path, args.sheet, args.user_col, args.dept_col)
 
     raise SystemExit("Provide either --user-id or --excel.")
